@@ -1,6 +1,7 @@
 from src.assembler.parser import Parser as Assembler
 from src.simulator.cpu import CPU
 
+
 def pipeline(file: str) -> None:
     ass = Assembler()
     ass.parse(file)

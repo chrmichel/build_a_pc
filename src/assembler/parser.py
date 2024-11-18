@@ -4,36 +4,36 @@ from src.assembler.symboltable import SymbolTable
 
 d_dict: dict[str, str] = {
     "null": "000",
-       "M": "001",
-       "D": "010",
-      "DM": "011",
-       "A": "100",
-      "AM": "101",
-      "AD": "110",
-     "ADM": "111"
+    "M": "001",
+    "D": "010",
+    "DM": "011",
+    "A": "100",
+    "AM": "101",
+    "AD": "110",
+    "ADM": "111",
 }
 j_dict: dict[str, str] = {
     "null": "000",
-    "JGT":  "001",
-    "JEQ":  "010",
-    "JGE":  "011",
-    "JLT":  "100",
-    "JNE":  "101",
-    "JLE":  "110",
-    "JMP":  "111"
+    "JGT": "001",
+    "JEQ": "010",
+    "JGE": "011",
+    "JLT": "100",
+    "JNE": "101",
+    "JLE": "110",
+    "JMP": "111",
 }
 c_dict: dict[str, str] = {
-      "0": "0101000",
-      "1": "0111111",
-     "-1": "0101001",
-      "D": "0001100",
-     "~D": "0001101",
-     "-D": "0001111",
+    "0": "0101000",
+    "1": "0111111",
+    "-1": "0101001",
+    "D": "0001100",
+    "~D": "0001101",
+    "-D": "0001111",
     "D-1": "0001110",
     "D+1": "0011111",
-      "A": "0110000",
-     "~A": "0110001",
-     "-A": "0110011",
+    "A": "0110000",
+    "~A": "0110001",
+    "-A": "0110011",
     "A-1": "0110010",
     "A+1": "0110111",
     "D+A": "0000010",
@@ -41,9 +41,9 @@ c_dict: dict[str, str] = {
     "A-D": "0000111",
     "D&A": "0000000",
     "D|A": "0010101",
-      "M": "1110000",
-     "~M": "1110001",
-     "-M": "1110011",
+    "M": "1110000",
+    "~M": "1110001",
+    "-M": "1110011",
     "M-1": "1110010",
     "M+1": "1110111",
     "D+M": "1000010",
@@ -52,6 +52,7 @@ c_dict: dict[str, str] = {
     "D&M": "1000000",
     "D|M": "1010101",
 }
+
 
 class Parser:
     def __init__(self) -> None:
@@ -85,17 +86,20 @@ class Parser:
         if len(comp_split) > 1:
             comp: str = comp_split[0].strip()
             jump: str = comp_split[1].strip()
-        else: 
+        else:
             comp = comp_split[0].strip()
             jump = "null"
 
-        valid: bool = (dest in d_dict.keys()) and (comp in c_dict.keys()) and (jump in j_dict.keys())
+        valid: bool = (
+            (dest in d_dict.keys())
+            and (comp in c_dict.keys())
+            and (jump in j_dict.keys())
+        )
 
         return valid, c_dict.get(comp, ""), d_dict.get(dest, ""), j_dict.get(jump, "")
-    
+
     def is_a_instruction(self, line: str) -> bool:
         return line.startswith("@")
-
 
     def first_pass(self) -> None:
         is_comment: bool = False
@@ -108,12 +112,12 @@ class Parser:
                     continue
                 else:
                     is_comment = False
-                    line = line[comm_end + 2:]
+                    line = line[comm_end + 2 :]
             else:
                 comm_start: int = line.find("/*")
                 if comm_start >= 0:
                     line = line[:comm_start]
-            # filter inline comments 
+            # filter inline comments
             hashtagpos: int = line.find("#")
             if hashtagpos >= 0:
                 line = line[:hashtagpos]
@@ -149,6 +153,3 @@ class Parser:
         self.first_pass()
         self.second_pass()
         self.write_hack(name)
-
-
-    
