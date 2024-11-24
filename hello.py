@@ -1,8 +1,11 @@
 from src.assembler.parser import Parser as Assembler
+from src.vm.parser import Parser as VMTranslator
 from src.simulator.cpu import CPU
 
 
 def pipeline(file: str) -> None:
+    vmt = VMTranslator()
+    vmt.parse(file)
     ass = Assembler()
     ass.parse(file)
     cpu = CPU()
@@ -11,4 +14,4 @@ def pipeline(file: str) -> None:
 
 
 if __name__ == "__main__":
-    pipeline("test_sum")
+    pipeline("test_1")

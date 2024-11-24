@@ -1,0 +1,9 @@
+push constant 5
+push constant 12
+add
+push constant 17
+eq
+if-goto CORRECT
+push constant 0
+label CORRECT
+push constant 1
