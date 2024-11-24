@@ -1,8 +1,8 @@
 def defaultdict() -> dict[str, int]:
     default = {
         "SP": 0,
-        "ARGS": 1,
-        "LCL": 2,
+        "LCL": 1,
+        "ARG": 2,
         "THIS": 3,
         "THAT": 4,
         "SCREEN": 16384,
