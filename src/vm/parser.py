@@ -1,11 +1,27 @@
 from pathlib import Path
 from src.vm.commands import Translator, bootstrap
+
 valid_commands: dict[str, int] = {
-    "push": 3, "pop": 3, "add":1, "sub":1, "neg":1,
-    "eq":1, "gt":1, "lt":1, "and":1, "or":1, "not":1,
-    "label":2, "goto":2, "if-goto":2, 
-    "function":3, "call":3, "return":1
+    "push": 3,
+    "pop": 3,
+    "add": 1,
+    "sub": 1,
+    "neg": 1,
+    "eq": 1,
+    "gt": 1,
+    "lt": 1,
+    "and": 1,
+    "or": 1,
+    "not": 1,
+    "label": 2,
+    "goto": 2,
+    "if-goto": 2,
+    "function": 3,
+    "call": 3,
+    "return": 1,
 }
+
+
 class Parser:
     def __init__(self) -> None:
         self.reset()
@@ -40,7 +56,7 @@ class Parser:
             proj_name = srcpath.name
         elif srcpath.is_file() and srcpath.suffix == ".vm":
             files = [srcpath]
-        
+
         for file in files:
             classname: str = file.name.removesuffix(".vm")
             self.read_vm(file)
